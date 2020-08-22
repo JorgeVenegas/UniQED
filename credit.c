@@ -60,18 +60,18 @@ void checkforBrandAndPrint(long input)
     string print; 
     if ((input >= 34e13 && input < 35e13) || (input >= 37e13 && input < 38e13))
     {
-        print = "AMERICAN EXPRESS";
+        print = "AMERICAN EXPRESS\n";
     }
     else if (input >= 51e14 && input < 56e14)
     {
-        print = "MASTER CARD";
+        print = "MASTER CARD\n";
     }
     else if ((input >= 4e12 && input < 5e12) || (input >= 4e15 && input < 5e15))
     {
-        print = "VISA";
+        print = "VISA\n";
     }
     else {
-        print = "INVALID";
+        print = "INVALID\n";
     }
     printf("%s", print);
 }
