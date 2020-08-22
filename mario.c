@@ -3,7 +3,10 @@
 
 int main(void) 
 {
-    int height = get_int("Height: \n"); 
+    do 
+    {
+     int height = get_int("Height: \n");    
+    } while(height >= 1 && height <= 8) 
     for (int i = 1; i <= height; i++)
     {
         for(int j = 0; j < (height - i); j++) 
