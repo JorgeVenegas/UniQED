@@ -13,9 +13,10 @@ int main(void)
     {
         input = get_long("Number: \n");
     }
-    while(input < 0);
+    while (input < 0);
     
-    if (checkIfValid(input)) {
+    if (checkIfValid(input))
+    {
         checkforBrandAndPrint(input);
     }
     else 
@@ -70,7 +71,8 @@ void checkforBrandAndPrint(long input)
     {
         print = "VISA\n";
     }
-    else {
+    else
+    {
         print = "INVALID\n";
     }
     printf("%s", print);
