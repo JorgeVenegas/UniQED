@@ -12,8 +12,8 @@ int main(void)
     for (int i = 0; i < len; i++)
     {
         char x = input[i];
-        char prevx = input[i-1];
-        if(isalpha(x))
+        char prevx = input[i - 1];
+        if (isalpha(x))
         {
             l++;
         }
@@ -21,7 +21,7 @@ int main(void)
         {
             w++;
         }
-        else if(x == '.' || x == '!' || x == '?')
+        else if (x == '.' || x == '!' || x == '?')
         {
             s++;
         }
@@ -29,11 +29,11 @@ int main(void)
     l *= (100 / w);
     s *= (100 / w);
     float output = round(0.0588 * l - 0.296 * s - 15.8);
-    if(output < 1) 
+    if (output < 1) 
     {
         printf("Before Grade 1\n");
     }
-    else if(output > 16)
+    else if (output > 16)
     {
         printf("Grade 16+\n");
     }
