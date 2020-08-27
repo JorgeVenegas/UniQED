@@ -24,6 +24,10 @@ int main(int argc, string argv[])
         }
     printf("ciphertext: %s\n", txt);
     }
+    else 
+    {
+        return 1;
+    }
 }
 
 bool isValid(string input)
