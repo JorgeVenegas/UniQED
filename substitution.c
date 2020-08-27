@@ -47,7 +47,7 @@ bool isValid(string input)
         dif[i] = (int) toupper(input[i]) - l;
         for (int j = 0; j < i; j++)
         {
-            if (dif[i] == dif[j])
+            if (input[i] == input[j])
             {
                 return false;
             }
