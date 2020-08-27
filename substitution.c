@@ -17,12 +17,12 @@ int main(int argc, string argv[])
     if (isValid(input))
     {
         string txt = get_string("plaintext: ");
-        for(int i = 0; i < strlen(txt); i++)
+        for (int i = 0; i < strlen(txt); i++)
         {
             int chara = txt[i];
             txt[i] = isupper(chara) ? chara + dif[chara - 'A'] : chara + dif[chara - 'a'];
         }
-    printf("ciphertext: %s\n", txt);
+        printf("ciphertext: %s\n", txt);
     }
     else 
     {
@@ -33,14 +33,15 @@ int main(int argc, string argv[])
 bool isValid(string input)
 {
     int len = strlen(input);
-    if(len != 26)
+    if (len != 26)
     {
         printf("Key must contain 26 characters. \n");
         return false;
     }
     for (int i = 0, l = 'A'; i < len; i++, l++)
     {
-        if(!isalpha(input[i])) {
+        if (!isalpha(input[i]))
+        {
             printf("Usage: ./substitution key \n"); 
             return false;
         }
