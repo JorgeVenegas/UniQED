@@ -41,11 +41,14 @@ bool isValid(string input)
     for (int i = 0, l = 'A'; i < len; i++, l++)
     {
         if(!isalpha(input[i])) {
-            printf("Usage: ./substitution key \n");
+            printf("Usage: ./substitution key \n"); 
             return false;
         }
         dif[i] = (int) toupper(input[i]) - l;
-        //printf("Num %i : %i \n", i, dif[i]);
+        for (int j = 0; j < i; j++)
+        {
+            return dif[i] == dif[j];
+        }
     }
     return true;
 }
