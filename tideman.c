@@ -197,7 +197,7 @@ void lock_pairs(void)
         locked[pairs[i].winner][pairs[i].loser] = true;
         if(has_cycle(pairs[i].winner))
         {
-            locked[pairs[i].winner][pairs[i].loser] = true;
+            locked[pairs[i].winner][pairs[i].loser] = false;
         }
     }
 }
