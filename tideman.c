@@ -225,7 +225,7 @@ void print_winner(void)
     int index_winner = get_source();
     if (index_winner != -1)
     {
-        printf("%s", candidates[index_winner]);
+        printf("%s\n", candidates[index_winner]);
     }
     return;
 }
