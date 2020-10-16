@@ -163,7 +163,6 @@ int compare(const void *a, const void *b)
 void sort_pairs(void)
 {
     qsort(pairs, pair_count, sizeof(pair), compare);
-    return;
 }
 
 bool has_cycle_helper(int index, bool visited[])
@@ -182,7 +181,7 @@ bool has_cycle_helper(int index, bool visited[])
 bool has_cycle(int index)
 {
     bool visited[candidate_count];
-    for (int i = 0; i > candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
         visited[i] = false;
     }
