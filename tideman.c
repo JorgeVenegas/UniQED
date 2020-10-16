@@ -101,7 +101,8 @@ int main(int argc, string argv[])
 // Update ranks given a new vote
 bool vote(int rank, string name, int ranks[])
 {
-    for (int i = 0; i < candidate_count; i++) {
+    for (int i = 0; i < candidate_count; i++)
+    {
         for (int j = 0; j < rank; j++)
         {
             if (strcmp(name, candidates[ranks[j]]) == 0)
@@ -152,8 +153,8 @@ void add_pairs(void)
 
 int compare(const void *a, const void *b)
 {
-    pair f = *((pair*) a);
-    pair s = *((pair*) b);
+    pair f = *((pair *) a);
+    pair s = *((pair *) b);
     int first = preferences[f.winner][f.loser] - preferences[f.loser][f.winner];
     int second = preferences[s.winner][s.loser] - preferences[s.loser][s.winner];
     return second - first;
@@ -168,12 +169,16 @@ void sort_pairs(void)
 bool has_cycle_helper(int index, bool visited[])
 {
     if (visited[index])
+    {
         return true;
+    }
     visited[index] = true;
     for (int i = 0; i < candidate_count; i++)
     {
         if (locked[index][i] && has_cycle_helper(i, visited))
+        {
             return true;
+        }
     }
     return false;
 }
@@ -194,7 +199,7 @@ void lock_pairs(void)
     for (int i = 0; i < pair_count; i++)
     {
         locked[pairs[i].winner][pairs[i].loser] = true;
-        if(has_cycle(pairs[i].winner))
+        if (has_cycle(pairs[i].winner))
         {
             locked[pairs[i].winner][pairs[i].loser] = false;
         }
@@ -204,8 +209,10 @@ void lock_pairs(void)
 bool is_source(int index)
 {
     for (int i = 0; i < candidate_count; i++)
-        if(locked[i][index])
+        if (locked[i][index])
+        {
             return false;
+        }
     return true;
 }
 
@@ -213,7 +220,9 @@ int get_source()
 {
     for (int i = 0; i < candidate_count; i++)
         if (is_source(i))
+        {
             return i;
+        }
     return -1;
 }
 
@@ -225,6 +234,4 @@ void print_winner(void)
     {
         printf("%s\n", candidates[index_winner]);
     }
-    return;
 }
-
