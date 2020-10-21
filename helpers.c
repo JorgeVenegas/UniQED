@@ -85,6 +85,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     float Gy[3][3] = {{-1.0, -2.0, -1.0}, {0.0, 0.0, 0.0}, {1.0, 2.0, 1.0}}; // Array for Gy
     float redSumGx = 0.0, greenSumGx = 0.0, blueSumGx = 0.0; // Gx for each channel
     float redSumGy = 0.0, greenSumGy = 0.0, blueSumGy = 0.0; // Gy for each channel
+    float redSumOpt = 0.0, greenSumOpt = 0.0, blueSumOpt = 0.0; // Output for each channel
     for (int i = 0; i < height; i++) // Search on each row
     {
         for (int j = 0; j < width; j++) // Search on each spot of row (column)
@@ -107,9 +108,12 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            edged[i][j].rgbtRed = roundf(sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy))) < 255 ? roundf(sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy))) : 255;
-            edged[i][j].rgbtGreen = roundf(sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy))) < 255 ? roundf(sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy))) : 255;
-            edged[i][j].rgbtBlue = roundf(sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy))) < 255 ? roundf(sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy))) : 255;
+            redSumOpt = roundf(sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy)));
+            greenSumOpt = roundf(sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy)));
+            blueSumOpt = roundf(sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy)));
+            edged[i][j].rgbtRed = redSumOpt < 255 ? redSumOpt : 255;
+            edged[i][j].rgbtGreen = greenSumOpt < 255 ? greenSumOpt : 255;
+            edged[i][j].rgbtBlue = blueSumOpt < 255 ? blueSumOpt : 255;
             redSumGx = greenSumGx = blueSumGx = 0.0;
             redSumGy = greenSumGy = blueSumGy = 0.0;
         }
