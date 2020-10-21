@@ -107,9 +107,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            edged[i][j].rgbtRed = sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy)) < 255 ? sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy)) : 255;
-            edged[i][j].rgbtGreen = sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy)) < 255 ? sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy)) : 255;
-            edged[i][j].rgbtBlue = sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy)) < 255 ? sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy)) : 255;
+            edged[i][j].rgbtRed = roundf(sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy))) < 255 ? roundf(sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy))) : 255;
+            edged[i][j].rgbtGreen = roundf(sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy))) < 255 ? roundf(sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy))) : 255;
+            edged[i][j].rgbtBlue = roundf(sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy))) < 255 ? roundf(sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy))) : 255;
             redSumGx = greenSumGx = blueSumGx = 0.0;
             redSumGy = greenSumGy = blueSumGy = 0.0;
         }
