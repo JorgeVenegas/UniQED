@@ -61,11 +61,18 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            pxl = image[i][j];
+            pxl = blurred[i][j];
             pxl.rgbtRed = round(redSum / pixels);
             pxl.rgbtGreen = round(greenSum / pixels);
             pxl.rgbtBlue = round(blueSum / pixels);
             pixels = 0;
+        }
+    }
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            image[i][j] = blurred[i][j];
         }
     }
 }
