@@ -81,8 +81,8 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE edged[height][width];
     RGBTRIPLE pxl;
-    const int Gx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}}; // Array for Gx
-    const int Gy[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}}; // Array for Gy
+    const float Gx[3][3] = {{-1.0, 0.0, 1.0}, {-2.0, 0.0, 2.0}, {-1.0, 0.0, 1.0}}; // Array for Gx
+    const float Gy[3][3] = {{-1.0, -2.0, -1.0}, {0.0, 0.0, 0.0}, {1.0, 2.0, 1.0}}; // Array for Gy
     float redSumGx = 0, greenSumGx = 0, blueSumGx = 0; // Gx for each channel
     float redSumGy = 0, greenSumGy = 0, blueSumGy = 0; // Gy for each channel
     for (int i = 0; i < height; i++) // Search on each row
@@ -96,13 +96,13 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     pxl = image[k][l];
                     if (k >= 0 && k < height && l >= 0 && l < width) // Check if it is insdide the image frame. This is for edges andcorners.
                     {
-                        redSumGx += pxl.rgbtRed * Gx[k][l];
-                        greenSumGx += pxl.rgbtGreen * Gx[k][l];
-                        blueSumGx += pxl.rgbtBlue * Gx[k][l];
+                        redSumGx += pxl.rgbtRed * Gx[k + 1][l + 1];
+                        greenSumGx += pxl.rgbtGreen * Gx[k + 1][l + 1];
+                        blueSumGx += pxl.rgbtBlue * Gx[k + 1][l + 1];
 
-                        redSumGy += pxl.rgbtRed * Gy[k][l];
-                        greenSumGy += pxl.rgbtGreen * Gy[k][l];
-                        blueSumGy += pxl.rgbtBlue * Gy[k][l];
+                        redSumGy += pxl.rgbtRed * Gy[k + 1][l + 1];
+                        greenSumGy += pxl.rgbtGreen * Gy[k + 1][l + 1];
+                        blueSumGy += pxl.rgbtBlue * Gy[k + 1][l + 1];
                     }
                     else
                     {
@@ -119,8 +119,8 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             edged[i][j].rgbtRed = sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy)) < 255 ? sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy)) : 255;
             edged[i][j].rgbtGreen = sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy)) < 255 ? sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy)) : 255;
             edged[i][j].rgbtBlue = sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy)) < 255 ? sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy)) : 255;
-            redSumGx = greenSumGx = blueSumGx = 0;
-            redSumGy = greenSumGy = blueSumGy = 0;
+            redSumGx = greenSumGx = blueSumGx = 0.0;
+            redSumGy = greenSumGy = blueSumGy = 0.0;
         }
     }
     for (int i = 0; i < height; i++)
