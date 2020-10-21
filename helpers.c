@@ -41,17 +41,17 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE blurred[height][width];
-    float redSum = 0, greenSum = 0, blueSum = 0, pixels = 0;
     RGBTRIPLE pxl;
+    float redSum = 0, greenSum = 0, blueSum = 0, pixels = 0;
     for (int i = 0; i < height; i++) // Search on each row
     {
         for (int j = 0; j < width; j++) // Search on each spot of row (column)
         {
-            for (int k = i - 1; k <= i + 1; k++) //
+            for (int k = i - 1; k <= i + 1; k++) // Sums RGB valuez within 3 rowas
             {
-                for (int l = j - 1; l <= j + 1; l++)
+                for (int l = j - 1; l <= j + 1; l++) //Sums RGB valuez within 3 columns
                 {
-                    if (k >= 0 && k < height && l >= 0 && l < width)
+                    if (k >= 0 && k < height && l >= 0 && l < width) // Only sum if it is insdide the image frame. This is for edges andcorners.
                     {
                         pxl = image[k][l];
                         redSum += pxl.rgbtRed;
@@ -79,5 +79,46 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 // Detect edges
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
-    return;
+    RGBTRIPLE edged[height][width];
+    RGBTRIPLE pxl;
+    const int Gx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}}; // Array for Gx
+    const int Gy[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}}; // Array for Gy
+    float redSumGx = 0, greenSumGx = 0, blueSumGx = 0; // Gx for each channel
+    float redSumGy = 0, greenSumGy = 0, blueSumGy = 0; // Gy for each channel
+    for (int i = 0; i < height; i++) // Search on each row
+    {
+        for (int j = 0; j < width; j++) // Search on each spot of row (column)
+        {
+            for (int k = i - 1; k <= i + 1; k++) // Loops within 3 rowas
+            {
+                for (int l = j - 1; l <= j + 1; l++) //Loops within 3 columns
+                {
+                    if (k >= 0 && k < height && l >= 0 && l < width) // Check if it is insdide the image frame. This is for edges andcorners.
+                    {
+                        pxl = image[k][l];
+
+                        redSumGx += pxl.rgbtRed * Gx[k][l];
+                        greenSumGx += pxl.rgbtGreen * Gx[k][l];
+                        blueSumGx += pxl.rgbtBlue * Gx[k][l];
+
+                        redSumGy += pxl.rgbtRed * Gy[k][l];
+                        greenSumGy += pxl.rgbtGreen * Gy[k][l];
+                        blueSumGy += pxl.rgbtBlue * Gy[k][l];
+                    }
+                }
+            }
+            edged[i][j].rgbtRed = sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy)) < 255 ? sqrt((redSumGx * redSumGx) + (redSumGy * redSumGy)) : 255;
+            edged[i][j].rgbtGreen = sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy)) < 255 ? sqrt((greenSumGx * greenSumGx) + (greenSumGy * greenSumGy)) : 255;
+            edged[i][j].rgbtBlue = sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy)) < 255 ? sqrt((blueSumGx * blueSumGx) + (blueSumGy * blueSumGy)) : 255;
+            redSumGx = greenSumGx = blueSumGx = 0;
+            redSumGy = greenSumGy = blueSumGy = 0;
+        }
+    }
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            image[i][j] = edged[i][j];
+        }
+    }
 }
