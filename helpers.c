@@ -81,10 +81,10 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE edged[height][width];
     RGBTRIPLE pxl;
-    const float Gx[3][3] = {{-1.0, 0.0, 1.0}, {-2.0, 0.0, 2.0}, {-1.0, 0.0, 1.0}}; // Array for Gx
-    const float Gy[3][3] = {{-1.0, -2.0, -1.0}, {0.0, 0.0, 0.0}, {1.0, 2.0, 1.0}}; // Array for Gy
-    float redSumGx = 0, greenSumGx = 0, blueSumGx = 0; // Gx for each channel
-    float redSumGy = 0, greenSumGy = 0, blueSumGy = 0; // Gy for each channel
+    float Gx[3][3] = {{-1.0, 0.0, 1.0}, {-2.0, 0.0, 2.0}, {-1.0, 0.0, 1.0}}; // Array for Gx
+    float Gy[3][3] = {{-1.0, -2.0, -1.0}, {0.0, 0.0, 0.0}, {1.0, 2.0, 1.0}}; // Array for Gy
+    float redSumGx = 0.0, greenSumGx = 0.0, blueSumGx = 0.0; // Gx for each channel
+    float redSumGy = 0.0, greenSumGy = 0.0, blueSumGy = 0.0; // Gy for each channel
     for (int i = 0; i < height; i++) // Search on each row
     {
         for (int j = 0; j < width; j++) // Search on each spot of row (column)
@@ -103,16 +103,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                         redSumGy += pxl.rgbtRed * Gy[k][l];
                         greenSumGy += pxl.rgbtGreen * Gy[k][l];
                         blueSumGy += pxl.rgbtBlue * Gy[k][l];
-                    }
-                    else
-                    {
-                        redSumGx += 0.0 * Gx[k][l];
-                        greenSumGx += 0.0 * Gx[k][l];
-                        blueSumGx += 0.0 * Gx[k][l];
-
-                        redSumGy += 0.0 * Gy[k][l];
-                        greenSumGy += 0.0 * Gy[k][l];
-                        blueSumGy += 0.0 * Gy[k][l];
                     }
                 }
             }
