@@ -89,20 +89,21 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++) // Search on each spot of row (column)
         {
-            for (int k = i - 1; k <= i + 1; k++) // Loops within 3 rowas
+            for (int k = i - 1, x = 0; k <= i + 1; k++, x++) // Loops within 3 rowas
             {
-                for (int l = j - 1; l <= j + 1; l++) //Loops within 3 columns
+                for (int l = j - 1, y = 0; l <= j + 1; l++, y++) //Loops within 3 columns
                 {
-                    pxl = image[k][l];
                     if (k >= 0 && k < height && l >= 0 && l < width) // Check if it is insdide the image frame. This is for edges andcorners.
                     {
-                        redSumGx += pxl.rgbtRed * Gx[k][l];
-                        greenSumGx += pxl.rgbtGreen * Gx[k][l];
-                        blueSumGx += pxl.rgbtBlue * Gx[k][l];
+                        pxl = image[k][l];
 
-                        redSumGy += pxl.rgbtRed * Gy[k][l];
-                        greenSumGy += pxl.rgbtGreen * Gy[k][l];
-                        blueSumGy += pxl.rgbtBlue * Gy[k][l];
+                        redSumGx += pxl.rgbtRed * Gx[x][y];
+                        greenSumGx += pxl.rgbtGreen * Gx[x][y];
+                        blueSumGx += pxl.rgbtBlue * Gx[x][y];
+
+                        redSumGy += pxl.rgbtRed * Gy[x][y];
+                        greenSumGy += pxl.rgbtGreen * Gy[x][y];
+                        blueSumGy += pxl.rgbtBlue * Gy[x][y];
                     }
                 }
             }
