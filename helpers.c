@@ -93,10 +93,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 for (int l = j - 1; l <= j + 1; l++) //Loops within 3 columns
                 {
+                    pxl = image[k][l];
                     if (k >= 0 && k < height && l >= 0 && l < width) // Check if it is insdide the image frame. This is for edges andcorners.
                     {
-                        pxl = image[k][l];
-
                         redSumGx += pxl.rgbtRed * Gx[k][l];
                         greenSumGx += pxl.rgbtGreen * Gx[k][l];
                         blueSumGx += pxl.rgbtBlue * Gx[k][l];
@@ -104,6 +103,16 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                         redSumGy += pxl.rgbtRed * Gy[k][l];
                         greenSumGy += pxl.rgbtGreen * Gy[k][l];
                         blueSumGy += pxl.rgbtBlue * Gy[k][l];
+                    }
+                    else
+                    {
+                        redSumGx += 0.0 * Gx[k][l];
+                        greenSumGx += 0.0 * Gx[k][l];
+                        blueSumGx += 0.0 * Gx[k][l];
+
+                        redSumGy += 0.0 * Gy[k][l];
+                        greenSumGy += 0.0 * Gy[k][l];
+                        blueSumGy += 0.0 * Gy[k][l];
                     }
                 }
             }
