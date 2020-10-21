@@ -43,11 +43,11 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     RGBTRIPLE blurred[height][width];
     float redSum = 0, greenSum = 0, blueSum = 0, pixels = 0;
     RGBTRIPLE pxl;
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < height; i++) // Search on each row
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < width; j++) // Search on each spot of row (column)
         {
-            for (int k = i - 1; k <= i + 1; k++)
+            for (int k = i - 1; k <= i + 1; k++) //
             {
                 for (int l = j - 1; l <= j + 1; l++)
                 {
@@ -61,11 +61,11 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            pxl = blurred[i][j];
-            pxl.rgbtRed = round(redSum / pixels);
-            pxl.rgbtGreen = round(greenSum / pixels);
-            pxl.rgbtBlue = round(blueSum / pixels);
-            pixels = 0;
+            blurred[i][j].rgbtRed = round(redSum / pixels);
+            blurred[i][j].rgbtGreen = round(greenSum / pixels);
+            blurred[i][j].rgbtBlue = round(blueSum / pixels);
+            redSum = greenSum = blueSum = pixels = 0;
+
         }
     }
     for (int i = 0; i < height; i++)
