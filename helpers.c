@@ -65,6 +65,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             pxl.rgbtRed = round(redSum / pixels);
             pxl.rgbtGreen = round(greenSum / pixels);
             pxl.rgbtBlue = round(blueSum / pixels);
+            pixels = 0;
         }
     }
 }
