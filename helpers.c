@@ -96,13 +96,13 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     pxl = image[k][l];
                     if (k >= 0 && k < height && l >= 0 && l < width) // Check if it is insdide the image frame. This is for edges andcorners.
                     {
-                        redSumGx += pxl.rgbtRed * Gx[k + 1][l + 1];
-                        greenSumGx += pxl.rgbtGreen * Gx[k + 1][l + 1];
-                        blueSumGx += pxl.rgbtBlue * Gx[k + 1][l + 1];
+                        redSumGx += pxl.rgbtRed * Gx[k][l];
+                        greenSumGx += pxl.rgbtGreen * Gx[k][l];
+                        blueSumGx += pxl.rgbtBlue * Gx[k][l];
 
-                        redSumGy += pxl.rgbtRed * Gy[k + 1][l + 1];
-                        greenSumGy += pxl.rgbtGreen * Gy[k + 1][l + 1];
-                        blueSumGy += pxl.rgbtBlue * Gy[k + 1][l + 1];
+                        redSumGy += pxl.rgbtRed * Gy[k][l];
+                        greenSumGy += pxl.rgbtGreen * Gy[k][l];
+                        blueSumGy += pxl.rgbtBlue * Gy[k][l];
                     }
                     else
                     {
