@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <cs50.h>
+
+typedef uint8_t BYTE;
 
 int main(int argc, char *argv[])
 {
@@ -10,15 +14,15 @@ int main(int argc, char *argv[])
     }
 
     FILE *infile = fopen(argv[1], "r");
-    if (file == NULL)
+    if (infile == NULL)
     {
-        printf("Could not open %s.\n", infile);
+        printf("Could not open file\n");
         return 4;
     }
 
     FILE *outfile;
 
-    const int blockSize = 512;
+    int blockSize = 512;
     bool foundFirstJpeg = false;
     int jpegCount = 0;
     BYTE buffer[blockSize];
@@ -26,7 +30,7 @@ int main(int argc, char *argv[])
     {
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0) // Check if it is a .jpeg
         {
-            if(!foundFirstJepg) // Check if it is the first .jpeg
+            if(!foundFirstJpeg) // Check if it is the first .jpeg
             {
                 foundFirstJpeg = true;
             }
@@ -36,17 +40,17 @@ int main(int argc, char *argv[])
             }
 
             char fileName[8];
-            sprintf(filename, "%03i.jpg", jpegCount++); // Format the name of the output jpeg file
-            outfile = fopen(filename, "w"); // Create jpeg file with filename previously formatted
+            sprintf(fileName, "%03i.jpg", jpegCount++); // Format the name of the output jpeg file
+            outfile = fopen(fileName, "w"); // Create jpeg file with filename previously formatted
             if (outfile == NULL)
             {
                 return 1;
             }
-            fwrite(buffer, blockSize, 1, outfie); // Write data in outfile
+            fwrite(buffer, blockSize, 1, outfile); // Write data in outfile
         }
         else if(foundFirstJpeg) // If we have found the first jpeg and it is not the beggining of a new jpeg, keep writing on the first one.
         {
-            fwrite(buffer, blockSize, 1, outfie);
+            fwrite(buffer, blockSize, 1, outfile);
         }
     }
     fclose(infile);
