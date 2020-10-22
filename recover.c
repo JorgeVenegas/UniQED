@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     {
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0) // Check if it is a .jpeg
         {
-            if(!foundFirstJpeg) // Check if it is the first .jpeg
+            if (!foundFirstJpeg) // Check if it is the first .jpeg
             {
                 foundFirstJpeg = true;
             }
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
             }
             fwrite(buffer, blockSize, 1, outfile); // Write data in outfile
         }
-        else if(foundFirstJpeg) // If we have found the first jpeg and it is not the beggining of a new jpeg, keep writing on the first one.
+        else if (foundFirstJpeg) // If we have found the first jpeg and it is not the beggining of a new jpeg, keep writing on the first one.
         {
             fwrite(buffer, blockSize, 1, outfile);
         }
