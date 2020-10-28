@@ -46,12 +46,10 @@ bool check(const char *word)
 
 // Hashes word to a number
 unsigned int hash(const char *word) {
-    char *low_word = NULL;
-    strcpy(low_word, word);
     long sum = 0, mul = 1;
-    for (int i = 0; i < strlen(low_word); i++) {
+    for (int i = 0; i < strlen(word); i++) {
         mul = (i % 4 == 0) ? 1 : mul * 256;
-        sum += low_word[i] * mul;
+        sum += tolower(word[i]) * mul;
     }
     return (int)(labs(sum) % N);
 }
