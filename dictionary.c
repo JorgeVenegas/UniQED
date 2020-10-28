@@ -32,7 +32,7 @@ bool check(const char *word)
     node *trav = table[hash(word)];
     while (trav != NULL)
     {
-        if(strcasecmp(word, trav->word) == 0)
+        if (strcasecmp(word, trav->word) == 0)
         {
             return true;
         }
@@ -45,9 +45,11 @@ bool check(const char *word)
 }
 
 // Hashes word to a number
-unsigned int hash(const char *word) {
+unsigned int hash(const char *word) 
+{
     long sum = 0, mul = 1;
-    for (int i = 0; i < strlen(word); i++) {
+    for (int i = 0; i < strlen(word); i++) 
+    {
         mul = (i % 4 == 0) ? 1 : mul * 256;
         sum += tolower(word[i]) * mul;
     }
@@ -128,8 +130,10 @@ bool unload(void)
 {
     for (int i = 0; i < N; i++)
     {
-        if(table[i] != NULL)
+        if (table[i] != NULL)
+        {
             destroy(table[i]);
+        }
     }
     return true;
 }
