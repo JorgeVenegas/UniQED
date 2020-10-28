@@ -70,6 +70,11 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
+    for (int i = 0; i < N; i++)
+    {
+        table[i] = NULL;
+    }
+
     FILE *file = fopen(dictionary, "r");
     if (file == NULL)
     {
@@ -96,6 +101,7 @@ bool load(const char *dictionary)
             table[index] = new_node; // Set the table index pointer to the new node we have just created.
         }
     }
+    fclose(file);
     return true;
 }
 
@@ -106,14 +112,14 @@ unsigned int size(void)
 }
 
 // Free al memory allocated.
-void destroy(node *node)
+void destroy(node *nde)
 {
-    if (node->next == NULL)
+    if (nde->next == NULL)
     {
         return;
     }
-    destroy(node->next);
-    free(node);
+    destroy(nde->next);
+    free(nde);
 }
 
 // Unloads dictionary from memory, returning true if successful else false
@@ -122,9 +128,7 @@ bool unload(void)
     for (int i = 0; i < N; i++)
     {
         if(table[i] != NULL)
-        {
             destroy(table[i]);
-        }
     }
     return true;
 }
