@@ -116,6 +116,7 @@ void destroy(node *nde)
 {
     if (nde->next == NULL)
     {
+        free(nde);
         return;
     }
     destroy(nde->next);
