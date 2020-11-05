@@ -25,5 +25,4 @@ with open(ctrs) as csvfile:
         else:
             middle = None
             last = fname[1]
-        db.execute("INSERT INTO students (first, middle, last, house, birth) VALUES (?, ?, ?, ?, ?);",
-            first, middle, last, house, birth)
+        db.execute("INSERT INTO students (first, middle, last, house, birth) VALUES (?, ?, ?, ?, ?);", first, middle, last, house, birth)
