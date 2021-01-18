@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+        <script>
+
+            function checkAnswer(event, btnn)
+            {
+                var triggerObj = event.srcElement;
+                if (triggerObj.innerHTML === document.querySelector("div#" + btnn.parentElement.id + " > .correct").innerHTML)
+                {
+                    triggerObj.style.backgroundColor = 'green';
+                    document.querySelector("#" + btnn.parentElement.id + " > .beneath").innerHTML = "Correct!";
+                    let btns = document.querySelectorAll("div#" + btnn.parentElement.id + " > .btn");
+                    for (btn of btns)
+                    {
+                        btn.disabled = true;
+                    }
+                }
+                else
+                {
+                    triggerObj.style.backgroundColor = 'red';
+                    document.querySelector("#" + btnn.parentElement.id + " > .beneath").innerHTML = "Incorrect!";
+                }
+            }
+
+            function checkAnswer2(btnn)
+            {
+                var element = document.getElementById('answer');
+                if (element.value.toLowerCase() == "yes")
+                {
+                    element.style.backgroundColor = 'green';
+                    let answr = document.querySelector('#answer');
+                    let answrbtn = document.querySelector('#answerbtn');
+                    answr.disabled = true;
+                    answrbtn.disabled = true;
+                    document.querySelector("#" + btnn.parentElement.id + " > .beneath").innerHTML = "Correct!";
+                }
+                else
+                {
+                    element.style.backgroundColor = 'red';
+                    document.querySelector("#" + btnn.parentElement.id + " > .beneath").innerHTML = "Incorrect!";
+                }
+            }
+
+        </script>
+
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice</h2>
+                <hr>
+
+                <h3>What is the name of the current president of México?</h3>
+                <div id="btns1">
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(eventm, this)">Lolita Ayala</button>
+                    <button class="btn correct" type="button" onclick="checkAnswer(event, this)">Andrés López</button>
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(event, this)">Eugenio Derbez</button>
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(event, this)">Bill Gates</button>
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(event, this)">Hirving Lozano</button>
+                    <p class="beneath"></p>
+                </div>
+
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+
+                <div id="text1">
+                    <h3>Should harvard offer me an scolarship to study Computer Science?</h3>
+                    <input type="text" id="answer" name="answer">
+                    <button type="button" id="answerbtn" onclick="checkAnswer2(this)">Submit</button>
+                    <p class="beneath"></p>
+                </div>
+
+            </div>
+
+                <div class="section">
+                <h2>Part 3: Multiple Choice</h2>
+                <hr>
+
+                <h3>Which is the best University in the world?</h3>
+                <div id="btns2">
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(event, this)">Yale</button>
+                    <button class="btn correct" type="button" onclick="checkAnswer(event, this)">Harvard</button>
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(event, this)">Princeton</button>
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(event, this)">Cambridge</button>
+                    <button class="btn incorrect" type="button" onclick="checkAnswer(event, this)">MIT</button>
+                    <p class="beneath"></p>
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+</html>
