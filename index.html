@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>HomePage</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="header">
+        <div class="homebtn">
+          <a href="/html/index.html"> Jorge Venegas </a>
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li>
+              <a class="nav-link nav-actual" href="/html/index.html">Home</a>
+            </li>
+            <li>
+              <a class="nav-link nav-nactual" href="/html/about.html"
+                >About Me</a
+              >
+            </li>
+            <li>
+              <a class="nav-link nav-nactual" href="/html/gallery.html"
+                >Gallery</a
+              >
+            </li>
+            <li>
+              <a class="nav-link nav-nactual" href="/html/contact.html"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="nav-hamburguer">
+          <img
+            class="burger"
+            src="/resources/images/Hamburger_icon.svg.png"
+            alt=""
+          />
+        </div>
+      </div>
+    </header>
+    <main>
+      <section>
+        <div class="landing">
+          <div class="title">
+            <h1>Jorge Venegas</h1>
+          </div>
+          <div class="buttons">
+            <form action="/html/about.html">
+              <button id="landing-about">About Me</button>
+            </form>
+            <form action="/html/contact.html">
+              <button id="landing-contact">Contact</button>
+            </form>
+          </div>
+          <div class="swipe-down">
+            <a href="#main-body"
+              ><img src="/resources/images/swipedown.png" alt=""
+            /></a>
+          </div>
+        </div>
+      </section>
+      <section id="main-body">
+        <div class="container">
+          <h1>Who am I?</h1>
+
+          <div class="who-am-i">
+            <div class="text t-1">
+              <p>My name is Jorge Venegas.</p>
+              <p>
+                I am currently studying Mechatronics Engineering in the
+                University of the Americas Puebla, in México.
+              </p>
+              <p>
+                Passionate student in STEM related fields, Filmmaking and
+                Finance.
+              </p>
+            </div>
+          </div>
+
+          <h1>FAQ's</h1>
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link"
+                    data-toggle="collapse"
+                    data-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                  >
+                    How can I contact you?
+                  </button>
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne"
+                class="collapse show"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <p>
+                    Esay! Just go to the
+                    <a href="/html/contact.html" style="color: black"
+                      >Contact</a
+                    >
+                    page and fill out the form with your personal information
+                    and explaining why you would like to get in contact with me.
+                    Come on! What are you waiting for?
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link collapsed"
+                    data-toggle="collapse"
+                    data-target="#collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="collapseTwo"
+                  >
+                    What can you do for me?
+                  </button>
+                </h5>
+              </div>
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <p>
+                    As a Mechatronics Engineer, slef-taught programer, filmmaker
+                    and investor, there are many things I can offer to you! If
+                    you are willing to do something related to any of these
+                    topics do not hesitate to get in contact with me and I will
+                    help you! Feel fre to ask for anything, we will find out
+                    later how to make it possible!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button
+                    class="btn btn-link collapsed"
+                    data-toggle="collapse"
+                    data-target="#collapseThree"
+                    aria-expanded="false"
+                    aria-controls="collapseThree"
+                  >
+                    Where are you based?
+                  </button>
+                </h5>
+              </div>
+              <div
+                id="collapseThree"
+                class="collapse"
+                aria-labelledby="headingThree"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <p>
+                    I am currently based in México. However, distance is not an
+                    excuse to not accpet a job. It does not matter where you
+                    live, feel free to get in contact with me and we will come
+                    up with a solution together. I am ready to complete what you
+                    ask for!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer">
+        <div class="copyright">Copyright 2021 - Jorge Venegas</div>
+        <div class="social">
+          Follow me on my social media:
+          <div class="media-icons">
+            <img
+              class="media-icon"
+              src="../resources/images/facebook.png"
+              alt="facebook icon"
+            />
+            <img
+              class="media-icon"
+              src="../resources/images/instagram.png"
+              alt="instagram icon"
+            />
+            <img
+              class="media-icon"
+              src="../resources/images/twitter.png"
+              alt="twitter icon"
+            />
+            <img
+              class="media-icon"
+              src="../resources/images/linkedin.png"
+              alt="linkedin icon"
+            />
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
