@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+        <div class="section">
+
+            <h2>You missed some information. Try again.</h2>
+            <!-- TODO: Create a form for users to submit a name, a month, and a day -->
+
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+
+            <form action="/" method="GET">
+                <input type="submit" value="Add Birthday"><br><br>
+            </form>
+
+            <form action="/remove" method="GET">
+                <input type="submit" value="Remove Birthday"><br><br>
+            </form>
+
+            <form action="/edit" method="GET">
+                <input type="submit" value="Edit Birthday">
+            </form>
+        </div>
+
+{% endblock %}
