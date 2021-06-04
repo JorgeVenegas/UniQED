@@ -251,7 +251,7 @@ def sell():
         if number > owned[0]["quantity"]:
             return apology("Too much shares. Try again", 400)
 
-        if not number:
+        if not number or not number.isnumeric():
             return apology("Missing value. Try again", 400)
 
         if not number.is_integer() or not number > 0:
