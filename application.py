@@ -49,7 +49,7 @@ if not os.environ.get("API_KEY"):
 def index():
     """Show portfolio of stocks"""
 
-    shares = db.execute("SELECT purchases.symbol, SUM(purchases.quantity), SUM(purchases.price) FROM users INNER JOIN purchases ON users.id = purchases.user_id GROUP BY purchases.symbol")
+    shares = db.execute("SELECT purchases.symbol, SUM(purchases.quantity), SUM(purchases.price) FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.user_id = ? GROUP BY purchases.symbol", session["user_id"])
 
     total = 0
 
