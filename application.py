@@ -245,13 +245,19 @@ def sell():
         if share not in symbols:
             return apology("Invalid share. Try again", 400)
 
-        number = float(request.form.get("shares"))
+
+        number = request.form.get("shares")
+
+        if not number.isnumeric():
+            return apology("Invalid value. Try again", 403)
+
+        number = float(number)
         owned = db.execute("SELECT SUM(purchases.quantity) AS quantity FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.symbol = ?", share)
 
         if number > owned[0]["quantity"]:
             return apology("Too much shares. Try again", 400)
 
-        if not number or not number.isnumeric():
+        if not number:
             return apology("Missing value. Try again", 400)
 
         if not number.is_integer() or not number > 0:
