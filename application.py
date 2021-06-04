@@ -49,7 +49,8 @@ if not os.environ.get("API_KEY"):
 def index():
     """Show portfolio of stocks"""
 
-    shares = db.execute("SELECT purchases.symbol, SUM(purchases.quantity), SUM(purchases.price) FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.user_id = ? GROUP BY purchases.symbol", session["user_id"])
+    shares = db.execute(
+        "SELECT purchases.symbol, SUM(purchases.quantity), SUM(purchases.price) FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.user_id = ? GROUP BY purchases.symbol", session["user_id"])
 
     total = 0
 
@@ -104,7 +105,8 @@ def buy():
             return apology("Unable to complete purchase. Not enough cash to proceed. Try again", 403)
 
         db.execute("UPDATE users SET cash = ? WHERE id = ?", cash - cost, session["user_id"])
-        db.execute("INSERT INTO purchases (user_id, symbol, quantity, price, i_price) VALUES (?, ?, ?, ?, ?)", session["user_id"], symbol, shares, cost, lvalues["price"])
+        db.execute("INSERT INTO purchases (user_id, symbol, quantity, price, i_price) VALUES (?, ?, ?, ?, ?)",
+                   session["user_id"], symbol, shares, cost, lvalues["price"])
 
         # Show corresponding values for stock symbol
         return redirect("/")
@@ -112,7 +114,6 @@ def buy():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("buy.html")
-
 
 
 @app.route("/history")
@@ -187,7 +188,7 @@ def quote():
             return apology("Invalid symbol. Try again", 400)
 
         # Lookup for corresponding values
-        values=lookup(symbol)
+        values = lookup(symbol)
 
         # Show corresponding values for stock symbol
         return render_template("quoted.html", values=values)
@@ -239,7 +240,8 @@ def sell():
 
         # Ensure fill of a correct username
         share = request.form.get("symbol")
-        shares = db.execute("SELECT purchases.symbol FROM users INNER JOIN purchases ON users.id = purchases.user_id GROUP BY purchases.symbol")
+        shares = db.execute(
+            "SELECT purchases.symbol FROM users INNER JOIN purchases ON users.id = purchases.user_id GROUP BY purchases.symbol")
 
         symbols = []
 
@@ -250,14 +252,14 @@ def sell():
         if share not in symbols:
             return apology("Invalid share. Try again", 400)
 
-
         number = request.form.get("shares")
 
         if not number.isnumeric():
             return apology("Invalid value. Try again", 40)
 
         number = float(number)
-        owned = db.execute("SELECT SUM(purchases.quantity) AS quantity FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.symbol = ?", share)
+        owned = db.execute(
+            "SELECT SUM(purchases.quantity) AS quantity FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.symbol = ?", share)
 
         if number > owned[0]["quantity"]:
             return apology("Too much shares. Try again", 400)
@@ -275,14 +277,16 @@ def sell():
         cash = cash[0]["cash"]
 
         db.execute("UPDATE users SET cash = ? WHERE id = ?", cash + income, session["user_id"])
-        db.execute("INSERT INTO purchases (user_id, symbol, quantity, price, i_price) VALUES (?, ?, ?, ?, ?)", session["user_id"], share, -number, -income, actual["price"])
+        db.execute("INSERT INTO purchases (user_id, symbol, quantity, price, i_price) VALUES (?, ?, ?, ?, ?)",
+                   session["user_id"], share, -number, -income, actual["price"])
 
         # Redirect to login
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-        shares = db.execute("SELECT purchases.symbol FROM users INNER JOIN purchases ON users.id = purchases.user_id GROUP BY purchases.symbol")
+        shares = db.execute(
+            "SELECT purchases.symbol FROM users INNER JOIN purchases ON users.id = purchases.user_id GROUP BY purchases.symbol")
         return render_template("sell.html", shares=shares)
 
 
