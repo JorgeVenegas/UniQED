@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+        <table class="table table-striped">
+            <thead>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </thead>
+            {% for share in shares %}
+                {% if share["SUM(purchases.quantity)"] > 0 %}
+                <tr>
+
+                    <td>{{ share["symbol"] }}</td>
+                    <td>{{ share["name"] }}</td>
+                    <td>{{ share["SUM(purchases.quantity)"] }}</td>
+                    <td>{{ share["price"] | usd }}</td>
+                    <td>{{ share["SUM(purchases.price)"] | usd }}</td>
+
+                </tr>
+                {% endif %}
+            {% endfor %}
+            <tr>
+
+                <td>CASH</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ cash[0]["cash"] | usd }}</td>
+
+            </tr>
+            <tfooter>
+
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ total | usd }}</td>
+
+            </tfooter>
+        </table>
+
+{% endblock %}
