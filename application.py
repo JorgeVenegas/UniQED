@@ -233,7 +233,7 @@ def sell():
     if request.method == "POST":
 
         # Ensure fill of a correct username
-        share = request.form.get("shares")
+        share = request.form.get("symbol")
         shares = db.execute("SELECT purchases.symbol FROM users INNER JOIN purchases ON users.id = purchases.user_id GROUP BY purchases.symbol")
 
         symbols = []
@@ -245,7 +245,7 @@ def sell():
         if share not in symbols:
             return apology("Invalid share. Try again", 400)
 
-        number = float(request.form.get("number"))
+        number = float(request.form.get("shares"))
         owned = db.execute("SELECT SUM(purchases.quantity) AS quantity FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.symbol = ?", share)
 
         if number > owned[0]["quantity"]:
