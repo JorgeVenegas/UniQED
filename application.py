@@ -84,6 +84,11 @@ def buy():
             return apology("Invalid symbol. Try again", 400)
 
         # Ensure fill of a correct shares
+        shares = request.form.get("shares")
+
+        if not shares.isnumeric():
+            return apology("Invalid number of shares. Try again", 400)
+
         shares = float(request.form.get("shares"))
 
         if not shares or not shares.is_integer() or not shares > 0:
@@ -249,7 +254,7 @@ def sell():
         number = request.form.get("shares")
 
         if not number.isnumeric():
-            return apology("Invalid value. Try again", 403)
+            return apology("Invalid value. Try again", 40)
 
         number = float(number)
         owned = db.execute("SELECT SUM(purchases.quantity) AS quantity FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.symbol = ?", share)
