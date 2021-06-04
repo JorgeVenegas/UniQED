@@ -204,14 +204,14 @@ def register():
         usernames = db.execute("SELECT * from users WHERE username = ?", username)
 
         if not username or len(usernames) != 0:
-            return apology("Invalid usernamte. Try again", 403)
+            return apology("Invalid usernamte. Try again", 400)
 
         # Ensure fill of a correct password
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
 
         if not password or not confirmation or password != confirmation:
-            return apology("Passwords do not match. Try again", 403)
+            return apology("Passwords do not match. Try again", 400)
 
         # Insert registrant info in database
         db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, generate_password_hash(password))
