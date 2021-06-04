@@ -81,13 +81,13 @@ def buy():
         lvalues = lookup(symbol)
 
         if not symbol or lvalues == None:
-            return apology("Invalid symbol. Try again", 403)
+            return apology("Invalid symbol. Try again", 400)
 
         # Ensure fill of a correct shares
         shares = float(request.form.get("shares"))
 
         if not shares or not shares.is_integer() or not shares > 0:
-            return apology("Invalid number of shares. Try again", 403)
+            return apology("Invalid number of shares. Try again", 400)
 
         # Necessary info for transaction
         cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
@@ -179,7 +179,7 @@ def quote():
         symbol = request.form.get("symbol")
 
         if not symbol or lookup(symbol) == None:
-            return apology("Invalid symbol. Try again", 403)
+            return apology("Invalid symbol. Try again", 400)
 
         # Lookup for corresponding values
         values=lookup(symbol)
@@ -243,16 +243,16 @@ def sell():
 
         print(symbols)
         if share not in symbols:
-            return apology("Invalid share. Try again", 403)
+            return apology("Invalid share. Try again", 400)
 
         number = float(request.form.get("number"))
         owned = db.execute("SELECT SUM(purchases.quantity) AS quantity FROM users INNER JOIN purchases ON users.id = purchases.user_id WHERE purchases.symbol = ?", share)
 
         if number > owned[0]["quantity"]:
-            return apology("Too much shares. Try again", 403)
+            return apology("Too much shares. Try again", 400)
 
         if not number:
-            return apology("Missing value. Try again", 403)
+            return apology("Missing value. Try again", 400)
 
         if not number.is_integer() or not number > 0:
             return apology("Invalid value. Try again", 403)
