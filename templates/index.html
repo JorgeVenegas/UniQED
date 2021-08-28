@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+        <div id="current" class="d-none">Home</div>
+
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-lg-6 col-md-12 mb-5 d-flex align-items-center">
+                    <div class="jumbotron">
+                      <h1 class="display-4">Welcome to UniQEd!</h1>
+                      <p class="lead">Pursue your passions and dreams everyday while earning valuable skills and the most suitable degree for your personality</p>
+                      <hr class="my-4">
+                      <p>Be part of the most complete personalized program of education worldwide.</p>
+                      <p class="lead">
+                        <a class="btn btn-primary btn-lg" href="/signup" role="button">Get Started!</a>
+                      </p>
+                    </div>
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <img src="/static/images/UM.png" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

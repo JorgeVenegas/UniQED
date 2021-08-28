@@ -1,0 +1,95 @@
+{% extends "layoutHome.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+        <div id="actual" class="d-none">Notes</div>
+
+        <h2 class="display-6 mb-3">My Notes</h1>
+
+        <div class='row'>
+              {% if notes|length > 0 %}
+                  {% for note in notes %}
+                  <div class="col-sm-6 mb-3">
+                    <div class="card home-card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12">
+                              <span class="h5 m-0" id="noteTitle{{ note['id']}}">{{ note['title']}}</span>
+                          </div>
+                          <div class="col-12">
+                              <span class="h6 m-0" id="noteDate{{ note['id']}}">{{ note['date']}}</span>
+                          </div>
+                          <div class="col-12">
+                              <span class="d-none" id="noteDescription{{ note['id']}}">{{ note['description']}}</span>
+                          </div>
+                          <div class="col-12 d-flex justify-content-end">
+                              <button type="button" class="btn btn-outline-light" data-bs-id="{{ note['id']}}" data-bs-toggle="modal" data-bs-target="#noteDescriptionModal">More...</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+              {% else %}
+                  <div class="col-12">
+                    <h6 class="display-10 mb-3">You don't have any note.</h1>
+                  </div>
+              {% endif %}
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#addNoteModal">Add Note</button>
+            </div>
+        </div>
+
+        <!-- Modals -->
+
+        <div class="modal fade" id="addNoteModal" tabindex="-1" aria-labelledby="addNoteModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addNoteModalLabel">New Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action='/add/notes' method="POST" >
+                  <div class="modal-body">
+                    <label for="noteTitle">Title</label>
+                    <input type="text" class="form-control" id="noteTitle" name="noteTitle"  required>
+                    <label for="noteDescription">Description</label>
+                    <textarea class="form-control" id="noteDescription" name="noteDescription" maxlength=500 required></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="noteDescriptionModal" tabindex="-1" aria-labelledby="noteDescriptionModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="noteDescriptionModalLabel">Note Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+                <div class="modal-body">
+                  <strong>Date created: </strong> <span class='noteModalDate'></span><br>
+                  <strong>Title: </strong> <span class='noteModalTitle'></span><br>
+                  <strong>Description: </strong> <span class='noteModalDescription'></span>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                  <form action='/' method='POST' id='deleteNote'>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+
+
+{% endblock %}

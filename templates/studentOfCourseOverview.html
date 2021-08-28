@@ -1,0 +1,70 @@
+{% extends "layoutHome.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+        <div id="current" class="d-none">Home</div>
+
+        <h2 class="display-6 mb-3">Student Overview: {{ student['fname'] }} {{ student['lname'] }} in {{ course['id'] }}</h1>
+
+        <div class="row mb-5">
+            <div class="col-12 col-sm-4">
+              <h6 class="mb-2">Status</h6>
+              <h4 class="mb-2">{{ student['status'] }}</h4>
+            </div>
+            <div class="col-12 col-sm-4">
+              <h6 class="mb-2">Progress</h6>
+              <h4 class="mb-2">{{ student['progress'] }}%</h4>
+            </div>
+            <div class="col-12 col-sm-4">
+              <h6 class="mb-2">Last seen</h6>
+              <h4 class="mb-2">{{ student['last_seen'] }}</h4>
+            </div>
+        </div>
+
+        <h2 class="display-6 mb-3">Actions</h1>
+        <div class="row mb-5">
+            <div class="col-12 col-sm-4 mb-2">
+                <button type="submit" class="btn btn-outline-primary">Send mail to {{student['email']}}</button>
+            </div>
+            <div class="col-12 col-sm-4 mb-2">
+                <button type="button" class="btn btn-outline-primary">Call to {{student['phone']}}</button>
+            </div>
+            <div class="col-12 col-sm-4 mb-2">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateStateModal">Update {{student['fname']}}'s status</button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="updateStateModal" tabindex="-1" aria-labelledby="updateStateModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateStateModalLabel">Update {{student['fname']}}'s status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/updateStatus/{{ student['enrollment_id']}}" method="POST">
+                  <div class="modal-body">
+                    <h6>New Status></h6>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check" name="statusRadio" id="statusRadio1" autocomplete="off" value="Excellent">
+                      <label class="btn btn-outline-success" for="statusRadio1">Excellent</label>
+
+                      <input type="radio" class="btn-check" name="statusRadio" id="statusRadio2" autocomplete="off" value="Good" checked>
+                      <label class="btn btn-outline-secondary" for="statusRadio2">Good</label>
+
+                      <input type="radio" class="btn-check" name="statusRadio" id="statusRadio3" autocomplete="off" value="Needs Attention">
+                      <label class="btn btn-outline-danger" for="statusRadio3">Needs Attention</label>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+{% endblock %}

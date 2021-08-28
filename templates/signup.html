@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block main %}
+
+        <div id="current" class="d-none">Sign Up</div>
+
+        <h1 class="display-4">We are almost done!</h1>
+        <div class="card signup-card">
+          <div class="card-body">
+            <form method="POST">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" placeholder="i.e. John"  required autofocus>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="i.e. Donnovan"  required>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="age" placeholder="i.e. 18"  required>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender">
+                    <option value="select" disabled selected>Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+              </div>
+            </div>
+            <div class="row pt-3">
+              <div class="form-group col-md-4">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="i.e. dame@example.com"  required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="language">Language</label>
+                <input type="text" class="form-control" id="language" name="language" placeholder="i.e. Spanish"  required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="i.e. 123 456 78 90"  required>
+              </div>
+            </div>
+            <div class="row pt-3">
+              <div class="form-group col-md-4">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username"  required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password"  required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="password2">Confirm Password</label>
+                <input type="password" class="form-control" id="password2" name="password2"  required>
+              </div>
+            </div>
+            <div class="row pt-3">
+              <div class="col"></div>
+              <div class="form-group col-md-4">
+                <label for="role">Role</label>
+                <div class="row">
+                <div class="form-check col-md-6 d-flex justify-content-center">
+                  <input class="form-check-input" type="radio" name="roleRadio" id="studentRadio" value="student">
+                  <label class="form-check-label" for="studentRadio">
+                    Student
+                  </label>
+                </div>
+                <div class="form-check col-md-6 d-flex justify-content-center">
+                  <input class="form-check-input" type="radio" name="roleRadio" id="teacherRadio" value="teacher" checked>
+                  <label class="form-check-label" for="teacherRadio">
+                    Teacher
+                  </label>
+                </div>
+              </div>
+              </div>
+              <div class="col"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <span class="d-none">Invalid username. Try again.</span>
+              </div>
+              <div class="col-md-4">
+                <span id="passwordLabel" class="d-none offset-md-8">Passwords do not match</span>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-4 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mt-3" style="width: 80%;">Submit</button>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+
+{% endblock %}

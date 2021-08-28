@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+        <div id="current" class="d-none">Log In</div>
+
+        <div class="row">
+            <h1 class="display-4 pb-2">Login here...</h1>
+            <div class="col"></div>
+            <div class="card login-card col-xs-10 col-sm-8 col-md-6 col-lg-4">
+              <div class="card-body">
+                <form method="POST" autocomplete="off">
+                <div class="row justify-content-center">
+                  <div class="form-group col-md-10 p-2">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required autofocus>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                <div class="form-group col-md-10 p-2">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                  </div>
+                </div>
+                <div class="row justify-content-center p-2">
+                  <div class="col-md-6 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary mt-3" style="width: 80%;">Submit</button>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+
+{% endblock %}

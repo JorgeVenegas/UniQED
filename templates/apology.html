@@ -1,0 +1,28 @@
+{% if session['logged_in'] %}
+    {% extends "layoutHome.html" %}
+{% else %}
+    {% extends "layout.html" %}
+{% endif %}
+
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <h1 class="display-1">{{ code }}</h1>
+            {{session['user_id']}}
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <h4>That's an error</h4>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <h1>Upss...</h1>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <h4>{{ message }}</h4>
+        </div>
+    </div>
+{% endblock %}
