@@ -1,0 +1,75 @@
+{% extends "layoutHome.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+        <div id="actual" class="d-none">Courses</div>
+
+        <h2 class="display-6 mb-5">Course Overview: {{ enrollment['course_id'] }}</h1>
+        <h3 class="mb-3">Details:</h3>
+
+        <div class='row'>
+            <div class='col-sm-6'>
+                <h5 class="mb-3">Status: {{ enrollment['status']}}</h5>
+            </div>
+            <div class='col-sm-6'>
+                <h5 class="mb-3">Enrolled: {{ enrollment['enrolled']}}</h5>
+            </div>
+            <div class='col-12'>
+                <h3 class="mb-3">Progress: {{ enrollment['progress']}}%</h3>
+                <div class="progress mb-3">
+                  <div class="progress-bar" role="progressbar" style="width: {{ enrollment['progress']  }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="h3 mb-3">Curriculum</h3>
+        <div class='row mb-5'>
+            <div class='col-12'>
+                    {% if chapters|length > 0 %}
+                      <div class="accordion mb-3" id="chapters">
+                        {% for chapter in chapters %}
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ chapter['chapter_id'] }}">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter['chapter_id'] }}" aria-expanded="dalse" aria-controls="collapse{{ chapter['chapter_id'] }}">
+                                Chapter {{ chapter['chapter_id'] }}: {{ chapter['title'] }}
+                              </button>
+                            </h2>
+                            <div id="collapse{{ chapter['chapter_id'] }}" class="accordion-collapse collapse" aria-labelledby="heading{{ chapter['chapter_id'] }}" data-bs-parent="#chapters">
+                              <div class="accordion-body">
+                                <h6 class="h6 mb-2">Description:</h6>
+                                {% if chapter['description'] != None %}
+                                  <p class="mb-2">{{ chapter['description'] }}</p>
+                                {% else %}
+                                  <p class="mb-2">Chapter has no description yet.</p>
+                                {% endif %}
+                                  <h6 class="h6 mb-2">Number of Lessons:</h6>
+                                  <p class="mb-2">{{ chapter['lessons']|length }}</p>
+                                {% if chapter['lessons']|length > 0 %}
+                                  <h6 class="h6 mb-2">Lessons completed:</h6>
+                                  <p class="mb-2">{{ chapter['completed'] }}</p>
+                                <div class="row">
+                                  <div class="col-12 d-flex justify-content-end">
+                                    <form action="/course/{{enrollment['course_id']}}/chapter/{{ chapter['chapter_id'] }}" method='GET'>
+                                      <button type="submit" class="btn btn-outline-primary">Go to lessons</button>
+                                    </form>
+                                  </div>
+                                </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                         {% endfor %}
+                      </div>
+                    {% else %}
+                        <div class="col-xs-12">
+                          <h6 class="mb-3">There are not registered chapters yet </h1>
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+
+{% endblock %}

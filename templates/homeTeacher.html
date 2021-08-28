@@ -1,0 +1,244 @@
+{% extends "layoutHome.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+        <div id="actual" class="d-none">Home</div>
+
+        <h2 class="h3 mb-3">My Courses</h1>
+        <div class='row courses'>
+            {% if courses|length > 0 %}
+                {% for course in courses %}
+                <div class="col-sm-6 col-md-4 mb-3">
+                  <div class="card home-card">
+                    <div class="card-body">
+                      <h6 class="mb-2">{{course['name']}}</h6>
+                      <h3 class="mb-2">{{course['id']}}</h3>
+                      <h5 class="mb-2">Class Size</h5>
+                      <h5 class="h3 mb-2">{{course['available']}}</h5>
+                      <h5 class="mb-2">Students Enrolled </h5>
+                      <h5 class="h3 mb-2">{{ course['available'] - course['remaining'] }}</h5>
+                      <h5 class="mb-2">Language </h5>
+                      <h5 class="h3 mb-2">{{ course['language'] }}</h5>
+                      <div class="col-12 d-flex justify-content-end">
+                        <form action="/course/{{course['id']}}">
+                          <button type="submit" class="btn btn-outline-light">More...</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-xs-12">
+                  <h6 class="mb-3">You have not registered courses.</h1>
+                </div>
+            {% endif %}
+        </div>
+        <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createCourseModal">Create new Course</button>
+
+        <div class='row'>
+
+          <div class='col-lg-6'>
+            <h2 class="h3 mb-3">My Agenda</h1>
+            <div class='row'>
+              {% if events|length > 0 %}
+                  {% for event in events %}
+                  <div class="col-sm-12 mb-3">
+                    <div class="card home-card">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-sm-6">
+                              <span class="h5 m-0" id="eventTitle{{ event['id']}}">{{ event['title']}}</span>
+                          </div>
+                          <div class="col-sm-3">
+                              <span class="h6 m-0" id="eventDate{{ event['id']}}">{{ event['date']}}</span>
+                              <span class="h6 m-0" id="eventTime{{ event['id']}}">{{ event['time']}}</span>
+                              <span class="d-none" id="eventDescription{{ event['id']}}">{{ event['description']}}</span>
+
+                          </div>
+                          <div class="col-sm-3 d-flex justify-content-end">
+                              <button type="button" class="btn btn-outline-light" data-bs-id="{{ event['id']}}" data-bs-toggle="modal" data-bs-target="#eventDescriptionModal">More...</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+              {% else %}
+                  <div class="col-xs-12">
+                    <h6 class="display-10 mb-3">You have not scheduled events.</h1>
+                  </div>
+              {% endif %}
+            </div>
+            <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEventModal">Add Event</button>
+          </div>
+
+          <div class='col-lg-6'>
+            <h2 class="h3 mb-3">My Notes</h1>
+            <div class='row notes'>
+              {% if notes|length > 0 %}
+                  {% for note in notes %}
+                  <div class="col-sm-6 mb-3">
+                    <div class="card home-card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12">
+                              <span class="h5 m-0" id="noteTitle{{ note['id']}}">{{ note['title']}}</span>
+                          </div>
+                          <div class="col-12">
+                              <span class="h6 m-0" id="noteDate{{ note['id']}}">{{ note['date']}}</span>
+                          </div>
+                          <div class="col-12">
+                              <span class="d-none" id="noteDescription{{ note['id']}}">{{ note['description']}}</span>
+                          </div>
+                          <div class="col-12 d-flex justify-content-end">
+                              <button type="button" class="btn btn-outline-light" data-bs-id="{{ note['id']}}" data-bs-toggle="modal" data-bs-target="#noteDescriptionModal">More...</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+              {% else %}
+                  <div class="col-xs-12">
+                    <h6 class="display-10 mb-3">You don't have any note.</h1>
+                  </div>
+              {% endif %}
+            </div>
+          <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#addNoteModal">Add Note</button>
+          </div>
+
+        </div>
+
+        <!-- Modals -->
+
+        <div class="modal fade" id="createCourseModal" tabindex="-1" aria-labelledby="createCourseModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="createCourseModalLabel">New Course</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action='/create/courses' method="POST" >
+                  <div class="modal-body">
+                    <label for="key">Class Key</label>
+                    <input type="text" class="form-control" id="key" name="key"  required>
+                    <label for="section">Class Secction</label>
+                    <input type="text" class="form-control" id="section" name="section"  required>
+                    <label for="name">Class Name</label>
+                    <input type="text" class="form-control" id="name" name="name"  required>
+                    <label for="size">Class Size</label>
+                    <input type="number" class="form-control" id="size" name="size" required>
+                    <label for="language">Class Language</label>
+                    <input type="text" class="form-control" id="language" name="language" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">New Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action='/add/events' method="POST" >
+                  <div class="modal-body">
+                    <label for="eventTitle">Title</label>
+                    <input type="text" class="form-control" id="eventTitle" name="eventTitle"  required>
+                    <label for="eventDate">Date</label>
+                    <input type="date" class="form-control" id="eventDate" name="eventDate"  required>
+                    <label for="eventTime">Time</label>
+                    <input type="time" class="form-control" id="eventTime" name="eventTime"  required>
+                    <label for="eventDescription">Description</label>
+                    <textarea class="form-control" id="eventDescription" name="eventDescription" maxlength=500 required></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="addNoteModal" tabindex="-1" aria-labelledby="addNoteModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addNoteModalLabel">New Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action='/add/notes' method="POST" >
+                  <div class="modal-body">
+                    <label for="noteTitle">Title</label>
+                    <input type="text" class="form-control" id="noteTitle" name="noteTitle"  required>
+                    <label for="noteDescription">Description</label>
+                    <textarea class="form-control" id="noteDescription" name="noteDescription" maxlength=500 required></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="eventDescriptionModal" tabindex="-1" aria-labelledby="eventDescriptionModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="eventDescriptionModalLabel">Event Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+                <div class="modal-body">
+                  <strong>Title: </strong> <span class='eventModalTitle'></span><br>
+                  <strong>Date: </strong> <span class='eventModalDate'></span><br>
+                  <strong>Time: </strong> <span class='eventModalTime'></span><br>
+                  <strong>Description: </strong> <span class='eventModalDescription'></span>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                  <form action='/' method='POST' id='deleteEvent'>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="noteDescriptionModal" tabindex="-1" aria-labelledby="noteDescriptionModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="noteDescriptionModalLabel">Note Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+                <div class="modal-body">
+                  <strong>Date created: </strong> <span class='noteModalDate'></span><br>
+                  <strong>Title: </strong> <span class='noteModalTitle'></span><br>
+                  <strong>Description: </strong> <span class='noteModalDescription'></span>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                  <form action='/' method='POST' id='deleteNote'>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+
+
+{% endblock %}

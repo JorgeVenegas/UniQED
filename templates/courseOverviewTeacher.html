@@ -1,0 +1,198 @@
+{% extends "layoutHome.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+        <div id="actual" class="d-none">Courses</div>
+
+        <h2 class="h3 mb-3">Course Overview: {{ course['id'] }}</h1>
+
+        <div class='row mb-5'>
+            <div class='col-sm-6 col-md-4 mb-3'>
+                <div class="card home-card">
+                    <div class="card-body">
+                        <h3 class="mb-3">Details</h3>
+                        <h5 class="mb-2">Class Size</h5>
+                        <h5 class="h3 mb-2">{{ course['available'] }}</h5>
+                        <h5 class="mb-2">Students Enrolled </h5>
+                        <h5 class="h3 mb-2">{{ course['available'] - course['remaining'] }}</h5>
+                        <h5 class="mb-2">Seats Available </h5>
+                        <h5 class="h3 mb-2">{{ course['remaining'] }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-6 col-md-4 mb-3'>
+                <div class="card home-card">
+                    <div class="card-body">
+                        <h3 class="mb-3">Class Status</h3>
+                        <h5 class="mb-2">Excellent</h5>
+                        <h5 class="h3 mb-2">{{ status['excellent'] }}</h5>
+                        <h5 class="mb-2">Good </h5>
+                        <h5 class="h3 mb-2">{{ status['good'] }}</h5>
+                        <h5 class="mb-2">Needs Attention</h5>
+                        <h5 class="h3 mb-2">{{ status['attention'] }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-12 col-md-4 mb-3'>
+                <div class="card home-card">
+                    <div class="card-body">
+                        <h3 class="mb-3">Statistics</h3>
+                        <h5 class="mb-2">Average Progress</h5>
+                        <h5 class="h3 mb-2">{{ stats['progress'] }}%</h5>
+                        <h5 class="mb-2">Language</h5>
+                        <h5 class="h3 mb-2">{{ course['language'] }}</h5>
+                        <h5 class="mb-2">M/W Relation</h5>
+                        <h5 class="h3 mb-2">{{ stats['relation'] }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="h3 mb-3">Curriculum</h3>
+        <div class='row mb-5'>
+            <div class='col-12'>
+                    {% if chapters|length > 0 %}
+                      <div class="accordion mb-3" id="chapters">
+                        {% for chapter in chapters %}
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ chapter['chapter_id'] }}">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter['chapter_id'] }}" aria-expanded="dalse" aria-controls="collapse{{ chapter['chapter_id'] }}">
+                                Chapter {{ chapter['chapter_id'] }}: {{ chapter['title'] }}
+                              </button>
+                            </h2>
+                            <div id="collapse{{ chapter['chapter_id'] }}" class="accordion-collapse collapse" aria-labelledby="heading{{ chapter['chapter_id'] }}" data-bs-parent="#chapters">
+                              <div class="accordion-body">
+                                {% if chapter['description'] != None %}
+                                  <h6 class="h6 mb-2">Description:</h6>
+                                  <p class="mb-2">{{ chapter['description'] }}</p>
+                                {% endif %}
+                                    {% if chapter['lessons']|length > 0 %}
+                                      <div class="accordion mb-3" id="lessons">
+                                        {% for lesson in chapter['lessons'] %}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading{{ chapter['chapter_id'] }}_{{ lesson['lesson_id'] }}">
+                                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ chapter['chapter_id'] }}_{{ lesson['lesson_id'] }}" aria-expanded="false" aria-controls="collapse{{ chapter['chapter_id'] }}_{{ lesson['lesson_id'] }}">
+                                                Lesson {{ lesson['lesson_id'] }}: {{ lesson['title'] }}
+                                              </button>
+                                            </h2>
+                                            <div id="collapse{{ chapter['chapter_id'] }}_{{ lesson['lesson_id'] }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne"  data-bs-parent="#lessons">
+                                              <div class="accordion-body accordion-body-sm">
+                                                {{ lesson['content'] }}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        {% endfor %}
+                                      </div>
+                                    {% else %}
+                                    <div class="col-12">
+                                      <h6 class="mb-3">There are not registered lessons yet </h1>
+                                    </div>
+                                    {% endif %}
+                                    <button type="button" class="btn btn-outline-primary mb-3" data-bs-chapter="{{ chapter['chapter_id'] }}" data-bs-course="{{ course['id'] }}" data-bs-toggle="modal" data-bs-target="#addLessonModal">Add Lesson</button>
+                                  </div>
+                              </div>
+                          </div>
+                         {% endfor %}
+                      </div>
+                    {% else %}
+                        <div class="col-xs-12">
+                          <h6 class="mb-3">There are not registered chapters yet </h1>
+                        </div>
+                    {% endif %}
+                <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#addChapterModal">Add Chapter</button>
+            </div>
+        </div>
+
+        <h3 class="h3 mb-3">Students</h3>
+
+        <div class='row mb-5'>
+            {% if students|length > 0 %}
+                {% for student in students %}
+                <div class="col-6 mb-3">
+                  <div class="card home-card darkblue-card">
+                    <div class="card-body">
+                        <div class="row student">
+                            <div class="col-12 col-sm-4 col-lg-4">
+                              <h5 class="mb-2">Name</h5>
+                              <h6 class="mb-2">{{ student['fname'] }} {{ student['lname'] }}</h6>
+                            </div>
+                            <div class="col-12 col-sm-4 col-lg-3">
+                              <h5 class="mb-2">Status</h5>
+                              <h6 class="mb-2">{{ student['status'] }}</h6>
+                            </div>
+                            <div class="col-12 col-sm-4 col-lg-3">
+                              <h5 class="mb-2">Last seen</h5>
+                              <h6 class="mb-2">{{ student['last_seen'] }}</h6>
+                            </div>
+                            <div class="col-12 col-lg-2 d-flex justify-content-end align-items-center">
+                              <form action="/course/{{course['id']}}/{{student['fname']}}">
+                                  <button type="submit" class="btn btn-outline-light">More...</button>
+                              </form>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-xs-12">
+                  <h6 class="mb-3">There are not registered students yet :/</h1>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="modal fade" id="addChapterModal" tabindex="-1" aria-labelledby="addChapterModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addChapterModalLabel">New Chapter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/course/{{course['id']}}/addChapter" method="POST" >
+                  <div class="modal-body">
+                    <label for="chapterNumber">Number</label>
+                    <input type="number" class="form-control" id="chapterNumber" name="chapterNumber"  required>
+                    <label for="chapterTitle">Title</label>
+                    <input type="text" class="form-control" id="chapterTitle" name="chapterTitle"  required>
+                    <label for="chapterDescription">Description</label>
+                    <input type="text" class="form-control" id="chapterDescription" name="chapterDescription"  required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="addLessonModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addLessonModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addLessonModalLabel">New Lesson</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="" method="POST" id="addLesson">
+                  <div class="modal-body">
+                    <label for="lessonTitle">Title</label>
+                    <input type="text" class="form-control" id="lessonTitle" name="lessonTitle"  required>
+                    <label for="lessonNumber">Number</label>
+                    <input type="text" class="form-control" id="lessonNumber" name="lessonNumber"  required>
+                    <label for="lessonContent">Content</label>
+                    <textarea class="form-control" id="lessonContent" name="lessonContent" style="height: 300px" required></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+
+{% endblock %}
